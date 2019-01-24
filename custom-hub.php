@@ -11,6 +11,12 @@ register_activation_hook( plugin_basename( __FILE__ ), 'hub_activate' );
 register_deactivation_hook( plugin_basename( __FILE__ ), 'hub_deactivate' );
 register_uninstall_hook( plugin_basename( __FILE__ ), 'hub_uninstall' );
 
+add_action( 'wp_enqueue_scripts', 'custom_hub_scripts' );
+function custom_hub_scripts() {
+	wp_enqueue_style( 'custom-hub-style',  plugin_dir_url( __FILE__ ) . 'css/styles.css' );
+	wp_enqueue_script( 'custom-hub-script', plugin_dir_url(__FILE__) . 'js/scripts.js', array('jquery'), '1.0.0', true );
+}
+
 function hub_activate() {
 	return true;
 }
