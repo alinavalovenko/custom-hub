@@ -224,7 +224,8 @@ function hubpost_shortcode_render( $atts ) {
 	$hub_data = shortcode_atts( array(
 		'category' => '',
 		'posttype' => 'hubpost',
-		'limit'    => '-1'
+		'limit'    => '-1',
+		'style'    => 'default',
 	), $atts, 'hubpost' );
 	ob_start();
 	$args = array(
@@ -236,19 +237,59 @@ function hubpost_shortcode_render( $atts ) {
 	);
 
 	$posts = get_posts( $args ); // get all articles by post type and categories
-	echo '<div class="hubcategory-wrap">'; // shortcode wrap start
+	echo '<div class="hubcategory-wrap hubcategory-' . $hub_data['style'] . '">'; // shortcode wrap start
 	foreach ( $posts as $post ) {
 		$primary_link = get_post_meta( $post->ID, 'article_url', true ); // get primary link
 		$format_term  = wp_get_post_terms( $post->ID, $taxonomy );
-		single_hubpost_thumbnail_markup( $primary_link, $format_term[0], $post->ID );
+		switch ( $hub_data['style'] ) {
+			case 'slider':
+				slider_hubpost_thumbnail_markup( $primary_link, $format_term[0], $post->ID );
+				break;
+			default:
+				single_hubpost_thumbnail_markup( $primary_link, $format_term[0], $post->ID );
+		}
 
 	}
+	if($hub_data['style'] === 'slider'){
+	    hub_slider_conteols();
+    }
 	echo '</div>'; // shortcode wrap end
 	$output = ob_get_contents();
 	ob_end_clean();
 
 	return $output;
 }
+
+
+/**
+ * Convert short code parameter to correct tax_query array
+ *
+ * @param $terms string from shortcode
+ * @param $taxonomy = 'hubcategory' main taxonomy
+ *
+ * @return array
+ */
+function prepare_tax_query( $terms, $taxonomy = 'hubcategory' ) {
+	$term_slugs = array();
+	if ( empty( $terms ) ) {
+		$terms = get_terms( $taxonomy );
+		foreach ( $terms as $term ) {
+			array_push( $term_slugs, $term->slug );
+		}
+	} else {
+		$term_slugs = $terms;
+	}
+	$tax_query = array(
+		array(
+			'taxonomy' => $taxonomy,
+			'field'    => 'slug',
+			'terms'    => $term_slugs
+		)
+	);
+
+	return $tax_query;
+}
+
 
 /**
  * Mark up for custom single item
@@ -281,33 +322,35 @@ function single_hubpost_thumbnail_markup( $permalink, $format_term, $post_id ) {
 	<?php
 }
 
-/**
- * Convert short code parameter to correct tax_query array
- *
- * @param $terms string from shortcode
- * @param $taxonomy = 'hubcategory' main taxonomy
- *
- * @return array
- */
-function prepare_tax_query( $terms, $taxonomy = 'hubcategory' ) {
-	$term_slugs = array();
-	if ( empty( $terms ) ) {
-		$terms = get_terms( $taxonomy );
-		foreach ( $terms as $term ) {
-			array_push( $term_slugs, $term->slug );
-		}
-	} else {
-		$term_slugs = $terms;
-	}
-	$tax_query = array(
-		array(
-			'taxonomy' => $taxonomy,
-			'field'    => 'slug',
-			'terms'    => $term_slugs
-		)
-	);
+function slider_hubpost_thumbnail_markup( $permalink, $format_term, $post_id ) {
+	$format_icon_id = get_term_meta( $format_term->term_id, 'hub_format_icon', true );
+	?>
+    <div class="hubpost-card hubpost-card-slide">
+        <div class="hubpost-col">
+            <a href="<?php echo $permalink; ?>" class="hubpost-link">
+        	<span class="hubpost-image">
+				<?php echo get_the_post_thumbnail( $post_id, 'magazine', array( 'class' => 'magazine' ) ); ?>
+            </span>
+            </a>
+        </div>
+        <div class="hubpost-col">
+            <a href="<?php echo $permalink; ?>" class="hubpost-link">
+                <span class="hubpost-title"><?php echo get_the_title( $post_id ); ?></span>
+                <span class="hubpost-source"><?php echo get_post_meta( $post_id, 'hubpost_source', true ); ?></span>
+                <span class="hubpost-excerp"><?php echo get_the_excerpt( $post_id ); ?></span>
 
-	return $tax_query;
+				<?php if ( ! empty( $format_icon_id ) ) : ?>
+                    <span class="post-format-wrap">
+	                    <span class="post-format-icon"><?php echo wp_get_attachment_image( $format_icon_id, 'hub-content-format', array( 'class' => 'hub-content-format' ) ) ?></span>
+                        <span class="hubpost-format-text"><?php echo $format_term->name; ?></span>
+                    </span>
+				<?php endif; ?>
+            </a>
+        </div>
+    </div>
+	<?php
 }
 
+function hub_slider_conteols(){
 
+}
