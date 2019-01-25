@@ -13,8 +13,10 @@ register_uninstall_hook( plugin_basename( __FILE__ ), 'hub_uninstall' );
 
 add_action( 'wp_enqueue_scripts', 'custom_hub_scripts' );
 function custom_hub_scripts() {
-	wp_enqueue_style( 'custom-hub-style',  plugin_dir_url( __FILE__ ) . 'css/styles.css' );
-	wp_enqueue_script( 'custom-hub-script', plugin_dir_url(__FILE__) . 'js/scripts.js', array('jquery'), '1.0.0', true );
+	wp_enqueue_style( 'custom-hub-style', plugin_dir_url( __FILE__ ) . 'css/styles.css' );
+	wp_enqueue_style( 'custom-hub-slick-style', '//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css', array( 'custom-hub-style' ) );
+	wp_enqueue_script( 'custom-hub-script', plugin_dir_url( __FILE__ ) . 'js/scripts.js', array( 'jquery' ), '1.0.0', true );
+	wp_enqueue_script( 'custom-hub-slick-script', '//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js', array( 'custom-hub-script' ), '1.0.0', true );
 }
 
 function hub_activate() {
@@ -256,9 +258,9 @@ function hubpost_shortcode_render( $atts ) {
 		}
 
 	}
-	if($hub_data['style'] === 'slider'){
-	    hub_slider_conteols();
-    }
+	if ( $hub_data['style'] === 'slider' ) {
+		hub_slider_conteols();
+	}
 	echo '</div>'; // shortcode wrap end
 	$output = ob_get_contents();
 	ob_end_clean();
@@ -357,6 +359,10 @@ function slider_hubpost_thumbnail_markup( $permalink, $format_term, $post_id ) {
 	<?php
 }
 
-function hub_slider_conteols(){
-
-}
+function hub_slider_conteols() {
+	?>
+    <ul class="slider-controls">
+        <li class="hub-prev"></li>
+        <li class="hub-next"></li>
+    </ul>
+<?php }
