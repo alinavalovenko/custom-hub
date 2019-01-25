@@ -258,9 +258,6 @@ function hubpost_shortcode_render( $atts ) {
 		}
 
 	}
-	if ( $hub_data['style'] === 'slider' ) {
-		hub_slider_conteols();
-	}
 	echo '</div>'; // shortcode wrap end
 	$output = ob_get_contents();
 	ob_end_clean();
@@ -358,11 +355,3 @@ function slider_hubpost_thumbnail_markup( $permalink, $format_term, $post_id ) {
     </div>
 	<?php
 }
-
-function hub_slider_conteols() {
-	?>
-    <ul class="slider-controls">
-        <li class="hub-prev"></li>
-        <li class="hub-next"></li>
-    </ul>
-<?php }
