@@ -203,16 +203,16 @@ align-items: center;
   padding: 40px;
 }
 .slick-prev{
-  background-image:url("https://wordpress-206830-641426.cloudwaysapps.com/wp-content/uploads/2019/01/arrow-left.svg");
+  background:url("https://wordpress-206830-641426.cloudwaysapps.com/wp-content/uploads/2019/01/arrow-left.svg") no-repeat;
 }
 .slick-prev:hover{
-  background-image:url("https://wordpress-206830-641426.cloudwaysapps.com/wp-content/uploads/2019/01/arrow-left-hover.svg");
+  background:url("https://wordpress-206830-641426.cloudwaysapps.com/wp-content/uploads/2019/01/arrow-left-hover.svg") no-repeat;
 }
 .slick-next{
-  background-image:url("https://wordpress-206830-641426.cloudwaysapps.com/wp-content/uploads/2019/01/arrow-right.svg");
+  background:url("https://wordpress-206830-641426.cloudwaysapps.com/wp-content/uploads/2019/01/arrow-right.svg") no-repeat;
 }
 .slick-next:hover{
-  background-image:url("https://wordpress-206830-641426.cloudwaysapps.com/wp-content/uploads/2019/01/arrow-right-hover.svg");
+  background:url("https://wordpress-206830-641426.cloudwaysapps.com/wp-content/uploads/2019/01/arrow-right-hover.svg") no-repeat;
 }
 
 .slider-controls{display:none !important;}
