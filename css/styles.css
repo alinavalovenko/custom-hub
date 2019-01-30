@@ -115,4 +115,105 @@ display:inline;
 }
 
 
+/**************************/
+
+/* Remove image overlay with circle and arrow */
+.hubpost-card-slide .image-overlay {
+display: none !important;
+opacity: 0 !important;
+}
+.hubpost-card-slide .image-overlay .image-overlay-inside:before {content: none !important;}
+
+.hubcategory-slider {
+  display: flex !important;
+  flex-flow: row nowrap;
+}
+@media (min-width: 768px) {
+  .hubcategory-slider {
+    margin: -5px;
+  }
+}
+.hubcategory-slider > div{
+  flex-basis: auto;
+}
+.hubcategory-wrap button:focus, .hubcategory-wrap a:focus { outline: none; }
+.hubcategory-slider > button{
+  flex-basis: content;
+  
+}
+
+@media only screen and (min-width: 768px) {
+.hubpost-card-slide .hubpost-columns{
+  display: flex;
+height:100% !important;
+flex-direction:row;
+align-items: center;
+
+}
+.hubpost-card-slide .hubpost-columns > .hubpost-col{
+  width: 50%;
+  margin: 2%;
+ height: 100%;
+
+}
+}
+
+.hubpost-card-slide .hubpost-image img{
+  border-radius: 9px;
+}
+
+.hubpost-card-slide .hubpost-title a{
+  color:#333;
+  font-size:24px;
+  font-weight: bold;
+}
+.hubpost-card-slide .hubpost-source{
+  color: #747474;
+  font-size:16px;
+  line-height:2;
+}
+
+.hubpost-card-slide .hubpost-excerp{
+  color: #333;
+  font-size:20px;
+
+}
+
+.hubpost-card-slide .post-format-wrap{
+  padding-top:20px
+}
+.hubpost-card-slide .post-format-wrap a span{
+  display: inline-block;
+  background-color: transparent;
+  vertical-align: middle;
+}
+.hubpost-card-slide .post-format-wrap a{
+  color: #333;
+}
+.hubpost-card-slide .post-format-wrap a:hover{
+  text-decoration:none;
+}
+
+.slick-arrow{
+  background-color: transparent;
+  border: none;
+  background-repeat: no-repeat;
+  background-position: center;
+  font-size:0;
+  padding: 40px;
+}
+.slick-prev{
+  background-image:url("https://wordpress-206830-641426.cloudwaysapps.com/wp-content/uploads/2019/01/arrow-left.svg");
+}
+.slick-prev:hover{
+  background-image:url("https://wordpress-206830-641426.cloudwaysapps.com/wp-content/uploads/2019/01/arrow-left-hover.svg");
+}
+.slick-next{
+  background-image:url("https://wordpress-206830-641426.cloudwaysapps.com/wp-content/uploads/2019/01/arrow-right.svg");
+}
+.slick-next:hover{
+  background-image:url("https://wordpress-206830-641426.cloudwaysapps.com/wp-content/uploads/2019/01/arrow-right-hover.svg");
+}
+
+.slider-controls{display:none !important;}
 
