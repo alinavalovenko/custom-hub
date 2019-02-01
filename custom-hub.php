@@ -194,6 +194,25 @@ if ( function_exists( 'acf_add_local_field_group' ) ):
 				'max_size'          => '',
 				'mime_types'        => '',
 			),
+			array(
+				'key' => 'field_5c543479c9555',
+				'label' => 'CTA Title',
+				'name' => 'cta_title',
+				'type' => 'text',
+				'instructions' => '',
+				'required' => 0,
+				'conditional_logic' => 0,
+				'wrapper' => array(
+					'width' => '',
+					'class' => '',
+					'id' => '',
+				),
+				'default_value' => 'Read me',
+				'placeholder' => '',
+				'prepend' => '',
+				'append' => '',
+				'maxlength' => '',
+			),
 		),
 		'location'              => array(
 			array(
@@ -329,6 +348,7 @@ function single_hubpost_thumbnail_markup( $permalink, $format_term, $post_id ) {
 
 function slider_hubpost_thumbnail_markup( $permalink, $format_term, $post_id ) {
 	$format_icon_id = get_term_meta( $format_term->term_id, 'hub_format_icon', true );
+	$cta_text = get_field('cta_title', $format_term);
 	?>
     <div class="hubpost-card-slide">
     <div class="hubpost-columns">    
@@ -348,7 +368,7 @@ function slider_hubpost_thumbnail_markup( $permalink, $format_term, $post_id ) {
                 <div class="post-format-wrap">
                     <a href="<?php echo $permalink; ?>" class="hubpost-link" target="_blank">
                     <span class="post-format-icon"><?php echo wp_get_attachment_image( $format_icon_id, 'hub-content-format', array( 'class' => 'hub-content-format' ) ) ?></span>
-                    <span class="hubpost-format-text"><?php echo $format_term->name; ?></span>
+                    <span class="hubpost-format-text"><?php echo $cta_text ? $cta_text : $format_term->name; ?></span>
                 	</a>
                 </div>
 			<?php endif; ?>
